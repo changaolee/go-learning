@@ -7,7 +7,7 @@ func main() {
 	done := make(chan bool)
 
 	go func() {
-		for true {
+		for {
 			j, more := <-jobs
 			if more {
 				fmt.Println("received job", j)

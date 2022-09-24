@@ -27,7 +27,7 @@ func main() {
 
 	go func() {
 		var state = make(map[int]int)
-		for true {
+		for {
 			select {
 			case read := <-reads:
 				read.resp <- state[read.key]
@@ -40,7 +40,7 @@ func main() {
 
 	for r := 0; r < 100; r++ {
 		go func() {
-			for true {
+			for {
 				read := readOp{
 					key:  rand.Intn(5),
 					resp: make(chan int),
@@ -55,7 +55,7 @@ func main() {
 
 	for w := 0; w < 10; w++ {
 		go func() {
-			for true {
+			for {
 				write := writeOp{
 					key:  rand.Intn(5),
 					val:  rand.Intn(100),

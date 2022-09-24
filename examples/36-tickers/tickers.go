@@ -10,7 +10,7 @@ func main() {
 	done := make(chan bool)
 
 	go func() {
-		for true {
+		for {
 			select {
 			case <-done:
 				fmt.Println("Done")
