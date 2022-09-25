@@ -1,33 +1,21 @@
 package gee
 
 import (
-	"fmt"
 	"net/http"
 )
 
-type HandleFunc func(http.ResponseWriter, *http.Request)
+type HandleFunc func(*Context)
 
 type Engine struct {
-	router map[string]HandleFunc
-}
-
-func (engine *Engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	key := r.Method + "-" + r.URL.Path
-	if handle, ok := engine.router[key]; ok {
-		handle(w, r)
-	} else {
-		w.WriteHeader(http.StatusNotFound)
-		fmt.Fprintf(w, "404 NOT FOUND: %s\n", r.URL)
-	}
+	router *router
 }
 
 func New() *Engine {
-	return &Engine{router: make(map[string]HandleFunc)}
+	return &Engine{router: newRouter()}
 }
 
 func (engine *Engine) addRoute(method string, pattern string, handler HandleFunc) {
-	key := method + "-" + pattern
-	engine.router[key] = handler
+	engine.router.addRouter(method, pattern, handler)
 }
 
 func (engine *Engine) GET(pattern string, handler HandleFunc) {
@@ -40,4 +28,9 @@ func (engine *Engine) POST(pattern string, handler HandleFunc) {
 
 func (engine *Engine) Run(address string) error {
 	return http.ListenAndServe(address, engine)
+}
+
+func (engine *Engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	c := newContext(w, r)
+	engine.router.handle(c)
 }
