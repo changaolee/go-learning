@@ -1,4 +1,4 @@
-module github.com/lichangao1826/go-learning/projects/gee-web
+module github.com/changaolee/go-learning/projects/gee-web
 
 go 1.19
 
