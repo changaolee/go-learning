@@ -8,9 +8,9 @@ tmp_dir = "tmp"
 [build]
 # 由`cmd`命令得到的二进制文件名
 bin = "./tmp/main"
-# 只需要写你平常编译使用的shell命令。你也可以使用 `make`
+# 只需要写你平常编译使用的 shell 命令。你也可以使用 `make`
 cmd = "go build -o ./tmp/main ."
-# 如果文件更改过于频繁，则没有必要在每次更改时都触发构建。可以设置触发构建的延迟时间
+# 如果文件更改过于频繁，则没有必要在每次更改时都触发构建，可以设置触发构建的延迟时间
 delay = 1000
 # 忽略这些文件扩展名或目录
 exclude_dir = ["assets", "tmp", "vendor","public/uploads"]
@@ -30,13 +30,13 @@ include_dir = []
 include_ext = ["go", "tpl", "tmpl", "html", "gohtml", "env"]
 # kill 命令延迟
 kill_delay = "0s"
-# air的日志文件名，该日志文件放置在你的`tmp_dir`中
+# air 的日志文件名，该日志文件放置在你的`tmp_dir`中
 log = "air.log"
 # 在 kill 之前发送系统中断信号，windows 不支持此功能
 send_interrupt = false
 # error 发生时结束运行
 stop_on_error = true
-# 命令附加参数 (bin/full_bin). Will run './tmp/main hello world'.
+# 命令附加参数 (bin/full_bin)
 args_bin  =  []
 
 [color]
@@ -51,5 +51,5 @@ runner = "green"
 time = false
 
 [misc]
-# 退出时删除tmp目录
+# 退出时删除 tmp 目录
 clean_on_exit = false
